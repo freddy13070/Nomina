@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************************************
+* Copyright (C) 2009-2010 Openbravo S.L.U.
+* Licensed under the Openbravo Commercial License version 1.0
+* You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html
+* or in the legal folder of this module distribution.
+************************************************************************************
+-->
+<!--
+ *  Author			: Luis Alfredo Valencia  Diaz
+ *  Company			: Grupo Xmarts  
+ *  Creation Date	: 09 de mayo del 2014
+-->
+
+ <SqlClass name="NLDeduccionesData" package="com.xmarts.Nomina.ad_actionButton">
+    
+<SqlMethod name="deducc" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+         select spc.spm_pay_comp_deduct_id  as dedid,spc.spm_deductions_id as IdHead,spc.amtperyear as montoanual,spc.amtpermonth as montomensual,spc.pay as tipopago
+          from spm_pay_comp_deduct spc
+          where spm_pay_comp_id = ?
+      ]]>
+    </Sql>
+    <Parameter name="SPMPayComp"/>    
+    </SqlMethod>
+    
+    <SqlMethod name="deductionsid" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select spm_deductions_id  
+            FROM spm_deductions
+          WHERE ad_client_id = ?
+          AND value = ?  
+      ]]>
+    </Sql>
+    <Parameter name="clientId"/>
+    <Parameter name="key"/> 
+    </SqlMethod>
+    
+     <SqlMethod name="deductionsamt" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select amtperyear 
+            FROM spm_pay_comp_deduct  
+          WHERE ad_client_id = ?
+          AND spm_pay_comp_id = ? 
+          AND spm_deductions_id = ?  
+      ]]>
+    </Sql>
+    <Parameter name="clientId"/>
+    <Parameter name="SPMPayComp"/>    
+    <Parameter name="deductionsid"/> 
+    </SqlMethod>
+
+    <SqlMethod name="idslab" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        Select spm_slab_id 
+        from spm_deductions where spm_deductions_id= ?  
+      ]]>
+    </Sql>
+    <Parameter name="deductionsid"/> 
+    </SqlMethod>
+
+
+ </SqlClass>

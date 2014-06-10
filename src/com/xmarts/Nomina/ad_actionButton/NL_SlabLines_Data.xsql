@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************************************
+* Copyright (C) 2009-2010 Openbravo S.L.U.
+* Licensed under the Openbravo Commercial License version 1.0
+* You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html
+* or in the legal folder of this module distribution.
+************************************************************************************
+-->
+<!--
+ *  Author			: Luis Alfredo Valencia  Diaz
+ *  Company			: Grupo Xmarts  
+ *  Creation Date	: 09 de mayo del 2014
+-->
+
+ <SqlClass name="NLSlabLinesData" package="com.xmarts.Nomina.ad_actionButton">
+     
+ <SqlMethod name="lines" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select fromamt as froma,toamt as toa,amt as fijo,em_nl_porcentaje as porcen from spm_slabline where spm_slab_id=?
+      ]]>
+    </Sql>
+    <Parameter name="SPMSlabID"/>    
+    </SqlMethod>
+
+    <SqlMethod name="payheadid" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select spm_pay_head_id  
+            FROM spm_pay_head
+          WHERE ad_client_id = ?
+          AND value = ?  
+      ]]>
+    </Sql>
+    <Parameter name="clientId"/>
+    <Parameter name="key"/> 
+    </SqlMethod>
+
+    <SqlMethod name="payheadamt" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select amtperyear 
+        FROM spm_pay_comp_add  
+        WHERE ad_client_id = ?
+        AND spm_pay_comp_id = ? 
+        AND spm_pay_head_id = ?  
+      ]]>
+    </Sql>
+    <Parameter name="clientId"/>
+    <Parameter name="SPMPayComp"/>    
+    <Parameter name="payheadid"/> 
+    </SqlMethod>
+ </SqlClass>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************************************
+* Copyright (C) 2009-2010 Openbravo S.L.U.
+* Licensed under the Openbravo Commercial License version 1.0
+* You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html
+* or in the legal folder of this module distribution.
+************************************************************************************
+-->
+<!--
+ *  Author			: Luis Alfredo Valencia  Diaz
+ *  Company			: Grupo Xmarts  
+ *  Creation Date	: 26 de mayo del 2014
+-->
+
+ <SqlClass name="NLAddicionData" package="com.xmarts.Nomina.ad_actionButton">
+
+    <SqlMethod name="addic" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select spc.spm_pay_comp_add_id as addid,spc.spm_pay_head_id as IdHead,spc.amtperyear as montoanual,spc.amtpermonth as montomensual,spc.pay as tipopago
+          from spm_pay_comp_add spc
+          left join spm_pay_head sph on sph.spm_pay_head_id = spc.spm_pay_head_id
+          where spm_pay_comp_id = ? and sph.em_nl_sueldobruto='N'
+      ]]>
+    </Sql>
+    <Parameter name="SPMPayComp"/>    
+    </SqlMethod>
+    
+   <SqlMethod name="sueldo_bruto" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+         select  spc.spm_pay_head_id as IdHead,spc.amtperyear as montoanual,spc.amtpermonth as montomensual,spc.pay as tipopago
+          from spm_pay_comp_add spc
+          left join spm_pay_head sph on sph.spm_pay_head_id = spc.spm_pay_head_id
+          where spm_pay_comp_id = ? and sph.em_nl_sueldobruto='Y'
+      ]]>
+    </Sql>
+    <Parameter name="SPMPayComp"/>    
+    </SqlMethod>
+
+    <SqlMethod name="idslab" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+       Select spm_slab_id 
+      from spm_pay_head where spm_pay_head_id= ?  
+      ]]>
+    </Sql>
+    <Parameter name="SPMPayHeadId"/> 
+    </SqlMethod>
+
+    
+ </SqlClass>

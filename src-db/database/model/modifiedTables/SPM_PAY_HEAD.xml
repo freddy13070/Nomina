@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+  <database name="MODIFIED TABLE SPM_PAY_HEAD">
+    <table name="SPM_PAY_HEAD" primaryKey="SPM_PAY_HEAD_KEY">
+      <column name="EM_NL_SUELDOBRUTO" primaryKey="false" required="false" type="CHAR" size="1" autoIncrement="false">
+        <default/>
+        <onCreateDefault/>
+      </column>
+    </table>
+  </database>

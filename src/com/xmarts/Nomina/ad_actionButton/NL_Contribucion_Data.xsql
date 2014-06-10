@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+************************************************************************************
+* Copyright (C) 2009-2010 Openbravo S.L.U.
+* Licensed under the Openbravo Commercial License version 1.0
+* You may obtain a copy of the License at http://www.openbravo.com/legal/obcl.html
+* or in the legal folder of this module distribution.
+************************************************************************************
+-->
+<!--
+ *  Author			: Luis Alfredo Valencia  Diaz
+ *  Company			: Grupo Xmarts  
+ *  Creation Date	: 09 de mayo del 2014
+-->
+
+ <SqlClass name="NLContribucionData" package="com.xmarts.Nomina.ad_actionButton">
+    
+<SqlMethod name="contrib" type="preparedStatement" return="multiple">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+         select spm_pay_comp_emprcontrib_id as empid,spm_employer_contrib_id as idhead,amtperyear as montoanual,amtpermonth as montomensual,
+        pay as tipopago
+        from spm_pay_comp_emprcontrib
+        where spm_pay_comp_id = ?
+      ]]>
+    </Sql>
+    <Parameter name="SPMPayComp"/>    
+    </SqlMethod>
+<SqlMethod name="idslab" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[   
+select spm_slab_id from spm_employer_contrib
+where spm_employer_contrib_id= ?  
+      ]]>
+    </Sql>
+    <Parameter name="deductionsid"/> 
+    </SqlMethod>
+    <SqlMethod name="contribid" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select spm_employer_contrib_id  
+            FROM spm_employer_contrib 
+          WHERE ad_client_id = ?
+          AND value = ?  
+      ]]>
+    </Sql>
+    <Parameter name="clientId"/>
+    <Parameter name="key"/> 
+    </SqlMethod>
+    
+    <SqlMethod name="contribsamt" type="preparedStatement" return="String">
+    <SqlMethodComment></SqlMethodComment>
+    <Sql>
+      <![CDATA[
+        select amtperyear 
+            FROM spm_pay_comp_emprcontrib  
+          WHERE ad_client_id = ?
+          AND spm_pay_comp_id = ? 
+          AND spm_employer_contrib_id = ?  
+      ]]>
+    </Sql>
+    <Parameter name="clientId"/>
+    <Parameter name="SPMPayComp"/>    
+    <Parameter name="contribid"/> 
+    </SqlMethod>
+
+    
+ </SqlClass>
